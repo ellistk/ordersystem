@@ -260,6 +260,7 @@ tr:hover td{background:#22263a}
         <table>
           <thead>
             <tr>
+              <th style="width:42px;text-align:center">#</th>
               <th style="width:64px" onclick="sortBy('type')" id="th-type">類別<span class="sort-icon">↕</span></th>
               <th style="width:88px" onclick="sortBy('shop')" id="th-shop"><span id="col-shop">店名</span><span class="sort-icon">↕</span></th>
               <th style="width:110px" onclick="sortBy('item')" id="th-item">品名<span class="sort-icon">↕</span></th>
@@ -271,7 +272,7 @@ tr:hover td{background:#22263a}
               <th style="width:130px">操作</th>
             </tr>
           </thead>
-          <tbody id="history-body"><tr><td colspan="9" class="loading">讀取中…</td></tr></tbody>
+          <tbody id="history-body"><tr><td colspan="10" class="loading">讀取中…</td></tr></tbody>
         </table>
       </div>
       <div class="history-footer" id="history-summary"></div>
@@ -925,7 +926,7 @@ function renderHistory(resetPage) {
     return sortDir * (va - vb);
   });
   if (!data.length) {
-    tbody.innerHTML = '<tr><td colspan="9" class="empty">尚無符合記錄</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" class="empty">尚無符合記錄</td></tr>';
     document.getElementById('history-summary').innerHTML = '篩選結果：<strong>0 筆</strong>';
     document.getElementById('pagination').innerHTML = '';
     return;
@@ -943,16 +944,19 @@ function renderHistory(resetPage) {
   });
   const typeColors = { '飲料':'#1a2535', '便當':'#1e2030', '其他':'#1a1d27' };
   let html = '';
+  let rowNum = (currentPage - 1) * PAGE_SIZE;
   groups.forEach(g => {
     const bgStyle = `background:${typeColors[g.type]||'#1a1d27'}`;
     html += `<tr class="group-header">
-      <td colspan="9">${g.date}　<span class="badge badge-${g.type}">${g.type}</span>　${esc(g.shop)}
+      <td colspan="10">${g.date}　<span class="badge badge-${g.type}">${g.type}</span>　${esc(g.shop)}
         <span style="float:right;font-weight:400;color:#888">共 ${g.items.length} 筆</span>
       </td>
     </tr>`;
     g.items.forEach(o => {
       const noteAttr = o.note ? ` data-note="${esc(o.note)}"` : '';
+      rowNum++;
       html += `<tr style="${bgStyle}"${noteAttr}>
+        <td style="text-align:center;color:#5a6278;font-size:12px">${rowNum}</td>
         <td><span class="badge badge-${o.type}">${o.type}</span></td>
         <td title="${esc(o.shop)}">${esc(o.shop)}</td>
         <td title="${esc(o.item)}">${esc(o.item)}</td>
