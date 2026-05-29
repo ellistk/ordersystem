@@ -941,10 +941,10 @@ function renderHistory(resetPage) {
     if (!g) { g = {key, date:o.date, type:o.type, shop:o.shop, items:[]}; groups.push(g); }
     g.items.push(o);
   });
-  const typeColors = { '飲料':'#e8f4fb', '便當':'#fef9e7', '其他':'#f9f9f9' };
+  const typeColors = { '飲料':'#1a2535', '便當':'#1e2030', '其他':'#1a1d27' };
   let html = '';
   groups.forEach(g => {
-    const bgStyle = `background:${typeColors[g.type]||'#fff'}`;
+    const bgStyle = `background:${typeColors[g.type]||'#1a1d27'}`;
     html += `<tr class="group-header">
       <td colspan="9">${g.date}　<span class="badge badge-${g.type}">${g.type}</span>　${esc(g.shop)}
         <span style="float:right;font-weight:400;color:#888">共 ${g.items.length} 筆</span>
