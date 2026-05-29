@@ -623,13 +623,13 @@ function applySettings() {
 }
 
 function fillSettingsForm() {
-  document.getElementById('set-brand').value = settings.brand || '';
-  document.getElementById('set-tab-order').value = settings.tabs.order || '';
-  document.getElementById('set-tab-history').value = settings.tabs.history || '';
-  document.getElementById('set-tab-settings').value = settings.tabs.settings || '';
+  document.getElementById('cfg-brand').value = settings.brand || '';
+  document.getElementById('cfg-tab-order').value = settings.tabs.order || '';
+  document.getElementById('cfg-tab-history').value = settings.tabs.history || '';
+  document.getElementById('cfg-tab-settings').value = settings.tabs.settings || '';
   const lb = settings.labels;
-  ['date','type','shop','item','mod','qty','price','person','rating','note'].forEach(k => {
-    const el = document.getElementById('set-label-' + k);
+  [['date','date'],['type','type'],['shop','shop'],['item','item'],['mod','mod'],['qty','qty'],['price','price'],['person','person'],['rating','rating'],['note','note']].forEach(([k,s]) => {
+    const el = document.getElementById('cfg-lbl-' + s);
     if (el) el.value = lb[k] || '';
   });
 }
@@ -736,12 +736,12 @@ function updateDatalistOptions() {
 }
 
 async function saveSettings() {
-  settings.brand = document.getElementById('set-brand').value.trim() || settings.brand;
-  settings.tabs.order    = document.getElementById('set-tab-order').value.trim() || settings.tabs.order;
-  settings.tabs.history  = document.getElementById('set-tab-history').value.trim() || settings.tabs.history;
-  settings.tabs.settings = document.getElementById('set-tab-settings').value.trim() || settings.tabs.settings;
-  ['date','type','shop','item','mod','qty','price','person','rating','note'].forEach(k => {
-    const el = document.getElementById('set-label-' + k);
+  settings.brand = document.getElementById('cfg-brand').value.trim() || settings.brand;
+  settings.tabs.order    = document.getElementById('cfg-tab-order').value.trim() || settings.tabs.order;
+  settings.tabs.history  = document.getElementById('cfg-tab-history').value.trim() || settings.tabs.history;
+  settings.tabs.settings = document.getElementById('cfg-tab-settings').value.trim() || settings.tabs.settings;
+  [['date','date'],['type','type'],['shop','shop'],['item','item'],['mod','mod'],['qty','qty'],['price','price'],['person','person'],['rating','rating'],['note','note']].forEach(([k,s]) => {
+    const el = document.getElementById('cfg-lbl-' + s);
     if (el && el.value.trim()) settings.labels[k] = el.value.trim();
   });
   await saveSettingsData();
