@@ -948,7 +948,7 @@ function renderHistory(resetPage) {
   groups.forEach(g => {
     const bgStyle = `background:${typeColors[g.type]||'#1a1d27'}`;
     html += `<tr class="group-header">
-      <td colspan="10">${g.date}　<span class="badge badge-${g.type}">${g.type}</span>　${esc(g.shop)}
+      <td colspan="10">${g.date}　${esc(g.shop)}
         <span style="float:right;font-weight:400;color:#888">共 ${g.items.length} 筆</span>
       </td>
     </tr>`;
