@@ -586,16 +586,21 @@ function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function localDateStr(d) {
+  return d.getFullYear() + '-' +
+    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+    String(d.getDate()).padStart(2, '0');
+}
+
 function initDate() {
-  // 使用本地時間，避免 UTC 時差導致日期差一天
   const now = new Date();
-  const today = now.getFullYear() + '-' +
-    String(now.getMonth() + 1).padStart(2, '0') + '-' +
-    String(now.getDate()).padStart(2, '0');
+  const today = localDateStr(now);
+  const weekAgo = new Date(now);
+  weekAgo.setDate(weekAgo.getDate() - 7);
   document.getElementById('f-date').value = today;
-  // 篩選日期預設空白，顯示全部資料
-  document.getElementById('s-from').value = '';
-  document.getElementById('s-to').value = '';
+  // 預設顯示近一週資料
+  document.getElementById('s-from').value = localDateStr(weekAgo);
+  document.getElementById('s-to').value = today;
 }
 
 /* ─── 設定套用 ─── */
@@ -901,10 +906,16 @@ function getFiltered() {
 }
 
 function clearFilters() {
-  ['s-keyword','s-from','s-to'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('s-keyword').value = '';
   document.getElementById('s-type').value = '';
   document.getElementById('s-person').value = '';
-  renderHistory();
+  // 重置回近一週
+  const now = new Date();
+  const weekAgo = new Date(now);
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  document.getElementById('s-from').value = localDateStr(weekAgo);
+  document.getElementById('s-to').value = localDateStr(now);
+  renderHistory(true);
 }
 
 function sortBy(col) {
