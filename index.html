@@ -539,6 +539,11 @@ async function loadData() {
     dataLoaded = true;
     applySettings();
     updateDatalistOptions();
+    // 若載入完成時正好在訂購記錄頁，立即渲染
+    const activeTab = document.querySelector('.tab.active');
+    if (activeTab && activeTab.id === 'tab-btn-history') {
+      renderHistory(true);
+    }
   }
 }
 
