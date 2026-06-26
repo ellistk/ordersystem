@@ -911,15 +911,12 @@ function getFiltered() {
 }
 
 function clearFilters() {
+  // 清空所有篩選條件，顯示全部資料
   document.getElementById('s-keyword').value = '';
   document.getElementById('s-type').value = '';
   document.getElementById('s-person').value = '';
-  // 重置回近一週
-  const now = new Date();
-  const weekAgo = new Date(now);
-  weekAgo.setDate(weekAgo.getDate() - 7);
-  document.getElementById('s-from').value = localDateStr(weekAgo);
-  document.getElementById('s-to').value = localDateStr(now);
+  document.getElementById('s-from').value = '';
+  document.getElementById('s-to').value = '';
   renderHistory(true);
 }
 
